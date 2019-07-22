@@ -25,7 +25,7 @@
     <dependency.junit.version>5.4.2</dependency.junit.version>
     <dependency.junit-platform.version>1.4.2</dependency.junit-platform.version>
     <dependency.lombok.version>1.18.8</dependency.lombok.version>
-    <dependency.simple-message.version>0.1.1-SNAPSHOT</dependency.simple-message.version>
+    <dependency.simple-message.version>1.0.0</dependency.simple-message.version>
 
     <plugin.build-helper.version>3.0.0</plugin.build-helper.version>
     <plugin.deploy.version>2.8.2</plugin.deploy.version>
