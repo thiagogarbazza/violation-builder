@@ -1,22 +1,22 @@
-# validation-builder
-A small java library for building validations.
+# violation-builder
+A small java library for building violations.
 
-[![Build Status](https://travis-ci.org/thiagogarbazza/validation-builder.svg?branch=master)](https://travis-ci.org/thiagogarbazza/validation-builder)
-[![Coverage Status](https://sonarcloud.io/api/project_badges/measure?project=com.github.thiagogarbazza:validation-builder&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.github.thiagogarbazza:validation-builder)
-[![Coverage Status](https://sonarcloud.io/api/project_badges/measure?project=com.github.thiagogarbazza:validation-builder&metric=coverage)](https://sonarcloud.io/dashboard?id=com.github.thiagogarbazza:validation-builder)
+[![Build Status](https://travis-ci.org/thiagogarbazza/violation-builder.svg?branch=master)](https://travis-ci.org/thiagogarbazza/violation-builder)
+[![Coverage Status](https://sonarcloud.io/api/project_badges/measure?project=com.github.thiagogarbazza:violation-builder&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.github.thiagogarbazza:violation-builder)
+[![Coverage Status](https://sonarcloud.io/api/project_badges/measure?project=com.github.thiagogarbazza:violation-builder&metric=coverage)](https://sonarcloud.io/dashboard?id=com.github.thiagogarbazza:violation-builder)
 
 
 ## Install
 
 Available in the [Maven Central repository].
 
-Add a dependency to `com.github.thiagogarbazza:validation-builder` in your project.
+Add a dependency to `com.github.thiagogarbazza:violation-builder` in your project.
 
 Example using maven:
 ```xml
 <dependency>
   <groupId>com.github.thiagogarbazza</groupId>
-  <artifactId>validation-builder</artifactId>
+  <artifactId>violation-builder</artifactId>
   <version>1.0.0-SNAPSHOT</version>
 </dependency>
 ```
@@ -56,4 +56,4 @@ void example() throws ViolationException {
 }
 ```
 
-[Maven Central repository]: http://mvnrepository.com/artifact/com.github.thiagogarbazza/validation-builder
+[Maven Central repository]: http://mvnrepository.com/artifact/com.github.thiagogarbazza/violation-builder

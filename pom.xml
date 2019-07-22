@@ -8,8 +8,8 @@
   <artifactId>violation-builder</artifactId>
   <version>0.1.0-SNAPSHOT</version>
 
-  <name>Validation builder</name>
-  <description>A small java library for building validations.</description>
+  <name>Violation builder</name>
+  <description>A small java library for building violations.</description>
   <url>https://github.com/thiagogarbazza/violation-builder</url>
 
   <properties>
