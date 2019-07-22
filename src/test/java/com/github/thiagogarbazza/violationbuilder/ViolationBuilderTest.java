@@ -27,7 +27,7 @@ class ViolationBuilderTest {
   void verifyDoNotThrowExceptionIgnoringWarningViolations() {
     violationBuilder.warning("warning-key", "some warning message");
 
-    violationBuilder.build(true);
+    violationBuilder.buildIgnoreWarnings();
   }
   
   @Test
