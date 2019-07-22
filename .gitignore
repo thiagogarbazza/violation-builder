@@ -1,0 +1,29 @@
+# IDE files
+#############################
+.idea/
+*.iml
+*.ipr
+*.iws
+
+.classpath
+.project
+.settings/
+.metadata/
+
+# Compiled files
+#############################
+target/
+out/
+*.log
+*.jar
+*.war
+*.ear
+*.ser
+*.ec
+**.tokens
+**.releaseBackup
+release.properties
+
+# OS files
+#############################
+.DS_Store

@@ -1,0 +1,31 @@
+sudo: false
+language: java
+jdk:
+  - openjdk8
+
+addons:
+  sonarcloud:
+    organization: "thiagogarbazza-github"
+    token:
+      secure: ${SONAR_TOKEN}
+
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.sonar/cache'
+
+script:
+  - mvn clean
+  - mvn org.jacoco:jacoco-maven-plugin:prepare-agent verify
+  - mvn sonar:sonar
+
+before_deploy:
+  - echo -e ${GPG_IMPORT} > target/gpg.asc
+  - gpg --fast-import target/gpg.asc
+
+deploy:
+  provider: script
+  script: mvn deploy --settings src/config/ci/maven-settings.xml
+  skip_cleanup: true
+  on:
+    tags: true
