@@ -11,6 +11,7 @@ import java.util.Iterator;
 import static com.github.thiagogarbazza.simplemessage.SimpleMessageType.ERROR;
 import static com.github.thiagogarbazza.violationbuilder.util.AssertMessageUtil.assertMessage;
 import static java.util.Arrays.asList;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -60,7 +61,7 @@ class RulesExecutorTest {
   void verifyAnyRulesBlockerPass() {
     Collection<ValidationRule> rules = asList(validationRule, validationRuleBlocker, validationRuleCumulative);
 
-    RulesExecutor.rulesExecutor(rules, "Some valid value.");
+    assertDoesNotThrow(() -> RulesExecutor.rulesExecutor(rules, "Some valid value."));
   }
 
   @Test
