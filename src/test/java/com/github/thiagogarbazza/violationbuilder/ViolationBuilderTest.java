@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import static com.github.thiagogarbazza.simplemessage.SimpleMessageType.ERROR;
 import static com.github.thiagogarbazza.simplemessage.SimpleMessageType.WARNING;
 import static com.github.thiagogarbazza.violationbuilder.util.AssertMessageUtil.assertMessage;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ViolationBuilderTest {
@@ -14,22 +15,22 @@ class ViolationBuilderTest {
   private ViolationBuilder violationBuilder;
 
   @BeforeEach
-  void before() {
+  void beforeEach() {
     violationBuilder = new ViolationBuilder();
   }
 
   @Test
   void verifyDoNotThrowExceptioNoViolations() {
-    violationBuilder.build();
+    assertDoesNotThrow(() -> violationBuilder.build());
   }
 
   @Test
   void verifyDoNotThrowExceptionIgnoringWarningViolations() {
     violationBuilder.warning("warning-key", "some warning message");
 
-    violationBuilder.buildIgnoreWarnings();
+    assertDoesNotThrow(() -> violationBuilder.buildIgnoreWarnings());
   }
-  
+
   @Test
   void verifyThrowExceptionWhenOwningViolationError() {
     violationBuilder.error("error-key", "some error message");
@@ -44,7 +45,7 @@ class ViolationBuilderTest {
   void verifyThrowExceptionWhenOwningViolationErrorConditionFalse() {
     violationBuilder.error(false, "error-key", "some error message");
 
-    violationBuilder.build();
+    assertDoesNotThrow(() -> violationBuilder.build());
   }
 
   @Test
@@ -71,7 +72,7 @@ class ViolationBuilderTest {
   void verifyThrowExceptionWhenOwningViolationErrorWithArgsConditionFalse() {
     violationBuilder.error(false, "error-key", () -> { throw new UnsupportedOperationException(); });
 
-    violationBuilder.build();
+    assertDoesNotThrow(() -> violationBuilder.build());
   }
 
   @Test
@@ -98,7 +99,7 @@ class ViolationBuilderTest {
   void verifyThrowExceptionWhenOwningViolationWarnningConditionFalse() {
     violationBuilder.warning(false, "warning-key", "some warning message");
 
-    violationBuilder.build();
+    assertDoesNotThrow(() -> violationBuilder.build());
   }
 
   @Test
@@ -125,7 +126,7 @@ class ViolationBuilderTest {
   void verifyThrowExceptionWhenOwningViolationWarnningWithArgsConditionFalse() {
     violationBuilder.warning(false, "warning-key", () -> { throw new UnsupportedOperationException(); });
 
-    violationBuilder.build();
+    assertDoesNotThrow(() -> violationBuilder.build());
   }
 
   @Test
