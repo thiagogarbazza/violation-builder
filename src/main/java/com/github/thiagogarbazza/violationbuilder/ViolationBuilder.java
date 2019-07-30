@@ -18,10 +18,6 @@ public class ViolationBuilder {
     build(false);
   }
 
-  public void buildIgnoreWarnings() {
-    build(true);
-  }
-
   public void build(boolean ignoreWarnings) {
     SimpleMessages thatViolations = ignoreWarnings
       ? this.violations.extractByType(ERROR)
@@ -30,6 +26,10 @@ public class ViolationBuilder {
     if (!thatViolations.isEmpty()) {
       throw new ViolationException("There was some violation.", thatViolations);
     }
+  }
+
+  public void buildIgnoreWarnings() {
+    build(true);
   }
 
   public ViolationBuilder error(final boolean condition, final String key, final String text) {
@@ -86,5 +86,9 @@ public class ViolationBuilder {
     this.violations.add(new SimpleMessage(WARNING, key, violationTextBuilder.build()));
 
     return this;
+  }
+
+  public static ViolationBuilder builder() {
+    return new ViolationBuilder();
   }
 }

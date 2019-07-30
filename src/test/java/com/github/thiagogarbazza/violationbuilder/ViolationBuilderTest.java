@@ -16,7 +16,7 @@ class ViolationBuilderTest {
 
   @BeforeEach
   void beforeEach() {
-    violationBuilder = new ViolationBuilder();
+    violationBuilder = ViolationBuilder.builder();
   }
 
   @Test

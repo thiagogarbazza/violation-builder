@@ -125,7 +125,7 @@
         <version>${plugin.failsafe.version}</version>
         <executions>
           <execution>
-            <id>integration-test</id>
+            <id>integration</id>
             <goals>
               <goal>integration-test</goal>
             </goals>
@@ -137,7 +137,7 @@
             </configuration>
           </execution>
           <execution>
-            <id>acceptance-test</id>
+            <id>acceptance</id>
             <goals>
               <goal>integration-test</goal>
             </goals>
