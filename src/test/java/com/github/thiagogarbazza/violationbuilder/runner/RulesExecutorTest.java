@@ -47,7 +47,7 @@ class RulesExecutorTest {
 
   @Test
   void verifyAnyRulesBlockerNotPassNotCallingCumulative() {
-    Collection<ValidationRule> rules = asList(validationRule, validationRuleBlocker, validationRuleCumulative);
+    Collection<ValidationRule<String>> rules = asList(validationRule, validationRuleBlocker, validationRuleCumulative);
 
     ViolationException exception = assertThrows(ViolationException.class, () -> RulesExecutor.rulesExecutor(rules, "Some block value."));
 
@@ -59,14 +59,14 @@ class RulesExecutorTest {
 
   @Test
   void verifyAnyRulesBlockerPass() {
-    Collection<ValidationRule> rules = asList(validationRule, validationRuleBlocker, validationRuleCumulative);
+    Collection<ValidationRule<String>> rules = asList(validationRule, validationRuleBlocker, validationRuleCumulative);
 
     assertDoesNotThrow(() -> RulesExecutor.rulesExecutor(rules, "Some valid value."));
   }
 
   @Test
   void verifyAnyRulesCumulative() {
-    Collection<ValidationRule> rules = asList(validationRule, validationRuleCumulative, validationRuleCumulative02, validationRuleBlocker);
+    Collection<ValidationRule<String>> rules = asList(validationRule, validationRuleCumulative, validationRuleCumulative02, validationRuleBlocker);
 
     ViolationException exception = assertThrows(ViolationException.class, () -> RulesExecutor.rulesExecutor(rules, "Some invalid value."));
 
@@ -79,7 +79,7 @@ class RulesExecutorTest {
 
   @Test
   void verifyAnyRulesNotPass() {
-    Collection<ValidationRule> rules = asList(validationRule, validationRuleCumulative, validationRuleBlocker);
+    Collection<ValidationRule<String>> rules = asList(validationRule, validationRuleCumulative, validationRuleBlocker);
 
     ViolationException exception = assertThrows(ViolationException.class, () -> RulesExecutor.rulesExecutor(rules, "Some invalid value."));
 
