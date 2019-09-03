@@ -23,7 +23,7 @@ public class ViolationBuilder {
   /**
    * @throws ViolationException when there is a violation.
    */
-  public void build() throws ViolationException {
+  public void build() {
     build(false);
   }
 
@@ -32,7 +32,7 @@ public class ViolationBuilder {
    *
    * @throws ViolationException when there is a violation.
    */
-  public void build(boolean ignoreWarnings) throws ViolationException {
+  public void build(boolean ignoreWarnings) {
     SimpleMessages thatViolations = ignoreWarnings
       ? this.violations.extractByType(ERROR)
       : this.violations;
@@ -46,7 +46,7 @@ public class ViolationBuilder {
    * @throws ViolationException when there is a violation of error type.
    * If there is any violation of warning type, they will be ignored.
    */
-  public void buildIgnoreWarnings() throws ViolationException {
+  public void buildIgnoreWarnings() {
     build(true);
   }
 
