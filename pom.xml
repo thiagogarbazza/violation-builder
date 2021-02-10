@@ -35,6 +35,19 @@
     <plugin.maven-resources.version>3.1.0</plugin.maven-resources.version>
     <plugin.maven-surefire.version>3.0.0-M3</plugin.maven-surefire.version>
     <plugin.sonatype-staging.version>1.6.8</plugin.sonatype-staging.version>
+
+    <!-- JaCoCo Configuration -->
+    <jacoco.append>true</jacoco.append>
+    <jacoco.destFile>${project.build.directory}/coverage-reports/jacoco.exec</jacoco.destFile>
+    <jacoco.dataFile>${project.build.directory}/coverage-reports/jacoco.exec</jacoco.dataFile>
+
+    <!-- Sonar Configuration -->
+    <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+    <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+    <sonar.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco/jacoco.xml</sonar.jacoco.xmlReportPaths>
+    <sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+    <sonar.coverage.exclusions> <!-- Sonar Configuration coverage exclusions --> </sonar.coverage.exclusions>
+    <sonar.cpd.exclusions> <!-- Sonar Configuration duplications exclusions --> </sonar.cpd.exclusions>
   </properties>
 
   <developers>
