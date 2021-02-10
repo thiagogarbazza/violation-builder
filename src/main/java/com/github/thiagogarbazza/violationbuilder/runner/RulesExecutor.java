@@ -17,6 +17,7 @@ public class RulesExecutor {
    * Validation rules executor.
    *
    * @param violationBuilder Builder of violations, accumulating the validations to make the return of problems simpler.
+   * @param rule Collection of rules to be executed
    * @param data Data to be validated.
    * @param <T> Type of data to be validated.
    *

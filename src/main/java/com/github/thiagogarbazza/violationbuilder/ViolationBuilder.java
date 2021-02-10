@@ -210,6 +210,8 @@ public class ViolationBuilder {
    * then made to the various append methods, followed by a call to
    * {@link #build} to get the result.</p>
    *
+   * @return Constructor for ViolationBuilder.
+   *
    * @since 1.0.0
    */
   public static ViolationBuilder builder() {
