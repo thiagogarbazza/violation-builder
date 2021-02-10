@@ -5,7 +5,7 @@ clean:
   mvn clean
 
 quality-check:
-  mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar
+  mvn org.jacoco:jacoco-maven-plugin:prepare-agent org.jacoco:jacoco-maven-plugin:prepare-agent-integration verify org.jacoco:jacoco-maven-plugin:report
 
 deploy:
   mvn deploy --settings src/config/ci/maven-settings.xml

@@ -22,17 +22,17 @@ class ViolationBuilderTest {
 
   @Test
   void verifyChainOfCalls() {
-    final ViolationException violationException = assertThrows(ViolationException.class, () ->
-      ViolationBuilder.builder()
-        .error("key-01", "msg-01")
-        .error("key-02", () -> "msg-02")
-        .error(true, "key-03", "msg-03")
-        .error(true, "key-04", () -> "msg-04")
-        .warning("key-01", "msg-01")
-        .warning("key-02", () -> "msg-02")
-        .warning(true, "key-03", "msg-03")
-        .warning(true, "key-04", () -> "msg-04")
-        .build());
+    final ViolationBuilder violationBuilder = ViolationBuilder.builder()
+      .error("key-01", "msg-01")
+      .error("key-02", () -> "msg-02")
+      .error(true, "key-03", "msg-03")
+      .error(true, "key-04", () -> "msg-04")
+      .warning("key-01", "msg-01")
+      .warning("key-02", () -> "msg-02")
+      .warning(true, "key-03", "msg-03")
+      .warning(true, "key-04", () -> "msg-04");
+
+    final ViolationException violationException = assertThrows(ViolationException.class, violationBuilder::build);
 
     assertEquals(8, violationException.getViolations().size());
   }
