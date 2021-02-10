@@ -11,7 +11,7 @@
   <url>https://github.com/thiagogarbazza/violation-builder</url>
 
   <properties>
-    <java.version>1.8</java.version>
+    <java.version>8</java.version>
     <java.encoding>UTF-8</java.encoding>
     <project.build.sourceEncoding>${java.encoding}</project.build.sourceEncoding>
     <project.reporting.outputEncoding>${java.encoding}</project.reporting.outputEncoding>
@@ -272,6 +272,9 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
+            <configuration>
+              <source>${java.version}</source>
+            </configuration>
             <executions>
               <execution>
                 <id>attach-javadocs</id>
