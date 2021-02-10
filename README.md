@@ -8,40 +8,40 @@ A small java library for building violations.
 ## Usage samples
 
 ```java
-void example()throws ViolationException{
+void example() throws ViolationException {
   boolean condition=true;
 
   ViolationBuilder.builder()
   .error(condition,"error-key",()->"some error message.")
   .warning(condition,"waring-key",()->"some warning message.")
   .buildIgnoreWarnings();
-  }
+}
 ```
 
 Appends to the builder a violations of error type.
 
 ```java
-void example()throws ViolationException{
+void example() throws ViolationException {
   boolean condition=true;
 
   ViolationBuilder.builder()
   .error(condition,"error-key-01","some error-01 message.")
   .error("error-key-02","some error-02 message.")
   .build();
-  }
+}
 ```
 
 Appends to the builder a violations of warning type.
 
 ```java
-void example()throws ViolationException{
+void example() throws ViolationException {
   boolean condition=true;
 
   ViolationBuilder.builder()
   .warning(condition,"waring-key-01","some waring-01 message.")
   .warning("waring-key-02","some waring-02 message.")
   .build();
-  }
+}
 ```
 
 Executing a collection of validation rules
@@ -52,9 +52,9 @@ Collection<Object> rules=Arrays.asList(
   (ValidationRuleStopFlow<Object>)(violationBuilder,data)->{violationBuilder.error(condition,"error-key-01","some error-01 message.")}),
   (ValidationRuleContinueFlow<Object>)(violationBuilder,data)->{violationBuilder.warning(condition,"error-key-01","some error-01 message.")}),
   (ValidationRule<Object>)(violationBuilder,data)->{violationBuilder.warning(condition,"error-key-01","some error-01 message.");return Rulesflow.CONTINUE;}),
-  );
+);
 
-  RulesExecutor.rulesExecutor(rules,someObject);
+RulesExecutor.rulesExecutor(rules,someObject);
 ```
 
 ## Installing
@@ -98,7 +98,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-- Java 7+
+- Java 8+
 - Junit jupter
 
 
