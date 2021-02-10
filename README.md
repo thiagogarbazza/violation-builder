@@ -7,38 +7,54 @@ A small java library for building violations.
 
 ## Usage samples
 
-
 ```java
-void example() throws ViolationException {
-  boolean condition = true;
+void example()throws ViolationException{
+  boolean condition=true;
 
-  new ViolationBuilder()
-    .error(condition, "error-key-01", "some error-01 message.")
-    .error("error-key-02", "some error-02 message.")
-    .build();
-}
+  ViolationBuilder.builder()
+  .error(condition,"error-key",()->"some error message.")
+  .warning(condition,"waring-key",()->"some warning message.")
+  .buildIgnoreWarnings();
+  }
 ```
 
+Appends to the builder a violations of error type.
+
 ```java
-void example() throws ViolationException {
-  boolean condition = true;
-  
-  new ViolationBuilder()
-    .warning(condition, "error-key-01", "some error-01 message.")
-    .warning("error-key-02", "some error-02 message.")
-    .build();
-}
+void example()throws ViolationException{
+  boolean condition=true;
+
+  ViolationBuilder.builder()
+  .error(condition,"error-key-01","some error-01 message.")
+  .error("error-key-02","some error-02 message.")
+  .build();
+  }
 ```
 
-```java
-void example() throws ViolationException {
-  boolean condition = true;
+Appends to the builder a violations of warning type.
 
-  new ViolationBuilder()
-    .error(condition, "error-key", () -> "some error message.")
-    .warning(condition, "waring-key", () -> "some warning message.")
-    .buildIgnoreWarnings();
-}
+```java
+void example()throws ViolationException{
+  boolean condition=true;
+
+  ViolationBuilder.builder()
+  .warning(condition,"waring-key-01","some waring-01 message.")
+  .warning("waring-key-02","some waring-02 message.")
+  .build();
+  }
+```
+
+Executing a collection of validation rules
+
+```java
+Collection<Object> rules=Arrays.asList(
+  (ValidationRuleContinueFlow<Object>)(violationBuilder,data)->{violationBuilder.warning(condition,"waring-key-01","some waring-01 message.")}),
+  (ValidationRuleStopFlow<Object>)(violationBuilder,data)->{violationBuilder.error(condition,"error-key-01","some error-01 message.")}),
+  (ValidationRuleContinueFlow<Object>)(violationBuilder,data)->{violationBuilder.warning(condition,"error-key-01","some error-01 message.")}),
+  (ValidationRule<Object>)(violationBuilder,data)->{violationBuilder.warning(condition,"error-key-01","some error-01 message.");return Rulesflow.CONTINUE;}),
+  );
+
+  RulesExecutor.rulesExecutor(rules,someObject);
 ```
 
 ## Installing
@@ -52,7 +68,7 @@ Example using maven:
 <dependency>
   <groupId>com.github.thiagogarbazza</groupId>
   <artifactId>violation-builder</artifactId>
-  <version>1.0.0</version>
+  <version>1.1.0</version>
 </dependency>
 ```
 

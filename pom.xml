@@ -4,7 +4,7 @@
 
   <groupId>com.github.thiagogarbazza</groupId>
   <artifactId>violation-builder</artifactId>
-  <version>1.0.1-SNAPSHOT</version>
+  <version>1.1.0-SNAPSHOT</version>
 
   <name>Violation builder</name>
   <description>A small java library for building violations.</description>
@@ -20,13 +20,13 @@
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
 
-    <dependency.junit.version>5.4.2</dependency.junit.version>
-    <dependency.junit-platform.version>1.4.2</dependency.junit-platform.version>
-    <dependency.lombok.version>1.18.8</dependency.lombok.version>
+    <dependency.junit.version>5.7.1</dependency.junit.version>
+    <dependency.junit-platform.version>1.7.1</dependency.junit-platform.version>
+    <dependency.lombok.version>1.18.18</dependency.lombok.version>
     <dependency.simple-message.version>1.0.0</dependency.simple-message.version>
 
     <plugin.build-helper.version>3.0.0</plugin.build-helper.version>
-    <plugin.lombok.version>1.18.6.0</plugin.lombok.version>
+    <plugin.lombok.version>1.18.16.0</plugin.lombok.version>
     <plugin.maven-deploy.version>2.8.2</plugin.maven-deploy.version>
     <plugin.maven-compiler.version>3.8.1</plugin.maven-compiler.version>
     <plugin.maven-failsafe.version>3.0.0-M3</plugin.maven-failsafe.version>
@@ -161,6 +161,7 @@
         <artifactId>maven-release-plugin</artifactId>
         <version>${plugin.maven-release.version}</version>
         <configuration>
+          <scmCommentPrefix>chore(release):</scmCommentPrefix>
           <preparationGoals>clean verify</preparationGoals>
           <tagNameFormat>@{project.version}</tagNameFormat>
           <autoVersionSubmodules>true</autoVersionSubmodules>

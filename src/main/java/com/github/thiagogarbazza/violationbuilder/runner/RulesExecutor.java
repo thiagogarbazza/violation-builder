@@ -5,25 +5,58 @@ import lombok.experimental.UtilityClass;
 
 import java.util.Collection;
 
+/**
+ * Validation rules executor.
+ *
+ * @since 1.1.0
+ */
 @UtilityClass
 public class RulesExecutor {
 
+  /**
+   * Validation rules executor.
+   *
+   * @param violationBuilder Builder of violations, accumulating the validations to make the return of problems simpler.
+   * @param data Data to be validated.
+   * @param <T> Type of data to be validated.
+   *
+   * @since 1.1.0
+   */
   public static <T> void ruleExecutor(final ViolationBuilder violationBuilder, final ValidationRule<T> rule, final T data) {
-    rule.run(violationBuilder, data);
+    final Rulesflow rulesflow = rule.run(violationBuilder, data);
 
-    if (rule instanceof ValidationRuleBlocker) {
+    if (Rulesflow.STOP.equals(rulesflow)) {
       violationBuilder.build();
     }
   }
 
+  /**
+   * Validation rules executor.
+   *
+   * @param violationBuilder Builder of violations, accumulating the validations to make the return of problems simpler.
+   * @param rules Collection of rules to be executed
+   * @param data Data to be validated.
+   * @param <T> Type of data to be validated.
+   *
+   * @since 1.1.0
+   */
   public static <T> void rulesExecutor(final ViolationBuilder violationBuilder, final Collection<ValidationRule<T>> rules, final T data) {
-    for (ValidationRule rule : rules) {
+    for (ValidationRule<T> rule : rules) {
       ruleExecutor(violationBuilder, rule, data);
     }
   }
 
+  /**
+   * Validation rules executor.
+   *
+   * @param rules Collection of rules to be executed
+   * @param data Data to be validated.
+   * @param <T> Type of data to be validated.
+   *
+   * @since 1.1.0
+   */
   public static <T> void rulesExecutor(final Collection<ValidationRule<T>> rules, final T data) {
-    final ViolationBuilder violationBuilder = new ViolationBuilder();
+    final ViolationBuilder violationBuilder = ViolationBuilder.builder();
     rulesExecutor(violationBuilder, rules, data);
     violationBuilder.build();
   }
