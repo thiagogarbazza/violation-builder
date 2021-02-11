@@ -68,12 +68,12 @@
     <url>https://github.com/thiagogarbazza/violation-builder</url>
     <connection>scm:git:git@github.com:thiagogarbazza/violation-builder.git</connection>
     <developerConnection>scm:git:git@github.com:thiagogarbazza/violation-builder.git</developerConnection>
-    <tag>1.1.0</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <ciManagement>
     <system>Travis</system>
-    <url>https://travis-ci.org/thiagogarbazza/violation-builder</url>
+    <url>https://travis-ci.com/thiagogarbazza/violation-builder</url>
   </ciManagement>
 
   <issueManagement>
