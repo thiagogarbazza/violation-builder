@@ -10,6 +10,7 @@ import static com.github.thiagogarbazza.violationbuilder.util.AssertMessageUtil.
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 class ViolationBuilderTest {
 
@@ -47,6 +48,13 @@ class ViolationBuilderTest {
     violationBuilder.warning("warning-key", "some warning message");
 
     assertDoesNotThrow(() -> violationBuilder.buildIgnoreWarnings());
+  }
+
+  @Test
+  void verifyLazyViolationTextBuilder() {
+    ViolationTextBuilder violationTextBuilder = () -> fail("It shouldn't have called this method.");
+
+    violationBuilder.warning(false, "warning-key", violationTextBuilder);
   }
 
   @Test
