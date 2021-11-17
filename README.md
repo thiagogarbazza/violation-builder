@@ -1,7 +1,7 @@
 # violation-builder
 A small java library for building violations.
 
-[![Build Status](https://api.travis-ci.com/thiagogarbazza/violation-builder.svg?branch=master)](https://travis-ci.com/thiagogarbazza/violation-builder)
+[![Build Status](https://api.travis-ci.com/thiagogarbazza/violation-builder.svg?branch=master)](https://app.travis-ci.com/thiagogarbazza/violation-builder)
 [![Coverage Status](https://sonarcloud.io/api/project_badges/measure?project=com.github.thiagogarbazza:violation-builder&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.github.thiagogarbazza:violation-builder)
 [![Coverage Status](https://sonarcloud.io/api/project_badges/measure?project=com.github.thiagogarbazza:violation-builder&metric=coverage)](https://sonarcloud.io/dashboard?id=com.github.thiagogarbazza:violation-builder)
 
