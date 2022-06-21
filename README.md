@@ -1,4 +1,5 @@
 # violation-builder
+
 A small java library for building violations.
 
 [![Build Status](https://api.travis-ci.com/thiagogarbazza/violation-builder.svg?branch=master)](https://app.travis-ci.com/thiagogarbazza/violation-builder)
@@ -9,12 +10,12 @@ A small java library for building violations.
 
 ```java
 void example() throws ViolationException {
-  boolean condition=true;
+  boolean condition = true;
 
   ViolationBuilder.builder()
-  .error(condition,"error-key",()->"some error message.")
-  .warning(condition,"waring-key",()->"some warning message.")
-  .buildIgnoreWarnings();
+    .error(condition,"error-key", () -> "some error message.")
+    .warning(condition,"waring-key", () -> "some warning message.")
+    .buildIgnoreWarnings();
 }
 ```
 
@@ -22,12 +23,14 @@ Appends to the builder a violations of error type.
 
 ```java
 void example() throws ViolationException {
-  boolean condition=true;
+  boolean condition = true;
 
   ViolationBuilder.builder()
-  .error(condition,"error-key-01","some error-01 message.")
-  .error("error-key-02","some error-02 message.")
-  .build();
+    .error(condition, "error-key-01", "some error-01 message.")
+    .error("error-key-02", "some error-02 message.")
+    .error(condition,"error-key-03", () -> "some error-03 message.")
+    .error("error-key-04", () -> "some error-04 message.")
+    .build();
 }
 ```
 
@@ -35,26 +38,49 @@ Appends to the builder a violations of warning type.
 
 ```java
 void example() throws ViolationException {
-  boolean condition=true;
+  boolean condition = true;
 
   ViolationBuilder.builder()
-  .warning(condition,"waring-key-01","some waring-01 message.")
-  .warning("waring-key-02","some waring-02 message.")
-  .build();
+    .warning(condition, "waring-key-01", "some waring-01 message.")
+    .warning("waring-key-02", "some waring-02 message.")
+    .warning(condition,"waring-key-03", () -> "some warning-03 message.")
+    .warning("waring-key-04", () -> "some warning-04 message.")
+    .build();
 }
 ```
 
 Executing a collection of validation rules
 
 ```java
-Collection<Object> rules=Arrays.asList(
-  (ValidationRuleContinueFlow<Object>)(violationBuilder,data)->{violationBuilder.warning(condition,"waring-key-01","some waring-01 message.")}),
-  (ValidationRuleStopFlow<Object>)(violationBuilder,data)->{violationBuilder.error(condition,"error-key-01","some error-01 message.")}),
-  (ValidationRuleContinueFlow<Object>)(violationBuilder,data)->{violationBuilder.warning(condition,"error-key-01","some error-01 message.")}),
-  (ValidationRule<Object>)(violationBuilder,data)->{violationBuilder.warning(condition,"error-key-01","some error-01 message.");return Rulesflow.CONTINUE;}),
+final Collection<ValidationRule<Object>> rules = Arrays.asList(
+  new ValidationRuleContinueFlow<Object>() {
+    @Override
+    public void runContinueFlow(ViolationBuilder violationBuilder, Object data) {
+      violationBuilder.warning(/* validation on the data */, "waring-key-01", "some waring-01 message.");
+    }
+  },
+  new ValidationRuleStopFlow<Object>() {
+    @Override
+    public void runStopFlow(ViolationBuilder violationBuilder, Object data) {
+      violationBuilder.error(/* validation on the data */, "error-key-01", "some error-01 message.");
+    }
+  },
+  new ValidationRuleContinueFlow<Object>() {
+    @Override
+    public void runContinueFlow(ViolationBuilder violationBuilder, Object data) {
+      violationBuilder.error(/* validation on the data */, "error-key-02", "some error-02 message.");
+    }
+  },
+  new ValidationRule<Object>() {
+    @Override
+    public Rulesflow run(ViolationBuilder violationBuilder, Object data) {
+      violationBuilder.error(/* validation on the data */, "error-key-03", "some error-03 message.");
+      return Rulesflow.CONTINUE;
+    }
+  }
 );
 
-RulesExecutor.rulesExecutor(rules,someObject);
+RulesExecutor.rulesExecutor(rules, data);
 ```
 
 ## Installing
@@ -64,11 +90,12 @@ Available in the [Maven Central repository].
 Add a dependency to `com.github.thiagogarbazza:violation-builder` in your project.
 
 Example using maven:
+
 ```xml
 <dependency>
   <groupId>com.github.thiagogarbazza</groupId>
   <artifactId>violation-builder</artifactId>
-  <version>1.1.0</version>
+  <version>1.2.0</version>
 </dependency>
 ```
 
@@ -101,8 +128,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 - Java 8+
 - Junit jupter
 
-
 [contributors]: (https://github.com/thiagogarbazza/violation-builder/contributors)
 [tags on this repository]: https://github.com/thiagogarbazza/violation-builder/tags
-
 [Maven Central repository]: http://mvnrepository.com/artifact/com.github.thiagogarbazza/violation-builder

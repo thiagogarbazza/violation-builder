@@ -32,6 +32,7 @@ public class ViolationBuilder {
 
   /**
    * @throws ViolationException when there is a violation.
+   *
    * @since 1.0.0
    */
   public void build() {
@@ -42,10 +43,11 @@ public class ViolationBuilder {
    * @param ignoreWarnings Condition that defines if there is any violation of warning type, they will be ignored or not.
    *
    * @throws ViolationException when there is a violation.
+   *
    * @since 1.0.0
    */
   public void build(boolean ignoreWarnings) {
-    SimpleMessages thatViolations = ignoreWarnings
+    final SimpleMessages thatViolations = ignoreWarnings
       ? this.violations.extractByType(ERROR)
       : this.violations;
 
@@ -88,15 +90,15 @@ public class ViolationBuilder {
    *
    * @param condition Condition that defines if the violation should be added or not.
    * @param key Unique identifier of the violation.
-   * @param violationTextBuilder Lazy description builder of the violation.
+   * @param violationTextFactory Lazy description builder of the violation.
    *
    * @return this - used to chain append calls.
    *
    * @since 1.0.0
    */
-  public ViolationBuilder error(final boolean condition, final String key, final ViolationTextBuilder violationTextBuilder) {
+  public ViolationBuilder error(final boolean condition, final String key, final ViolationTextFactory violationTextFactory) {
     if (condition) {
-      this.violations.add(new SimpleMessage(ERROR, key, violationTextBuilder.build()));
+      this.violations.add(new SimpleMessage(ERROR, key, violationTextFactory.create()));
     }
 
     return this;
@@ -122,14 +124,14 @@ public class ViolationBuilder {
    * <p>Appends to the builder a violation of error type.</p>
    *
    * @param key Unique identifier of the violation.
-   * @param violationTextBuilder Lazy description builder of the violation.
+   * @param violationTextFactory Lazy description builder of the violation.
    *
    * @return this - used to chain append calls.
    *
    * @since 1.0.0
    */
-  public ViolationBuilder error(final String key, final ViolationTextBuilder violationTextBuilder) {
-    this.violations.add(new SimpleMessage(ERROR, key, violationTextBuilder.build()));
+  public ViolationBuilder error(final String key, final ViolationTextFactory violationTextFactory) {
+    this.violations.add(new SimpleMessage(ERROR, key, violationTextFactory.create()));
 
     return this;
   }
@@ -139,15 +141,15 @@ public class ViolationBuilder {
    *
    * @param condition Condition that defines if the violation should be added or not.
    * @param key Unique identifier of the violation.
-   * @param violationTextBuilder Lazy description builder of the violation.
+   * @param violationTextFactory Lazy description builder of the violation.
    *
    * @return this - used to chain append calls.
    *
    * @since 1.0.0
    */
-  public ViolationBuilder warning(final boolean condition, final String key, final ViolationTextBuilder violationTextBuilder) {
+  public ViolationBuilder warning(final boolean condition, final String key, final ViolationTextFactory violationTextFactory) {
     if (condition) {
-      this.violations.add(new SimpleMessage(WARNING, key, violationTextBuilder.build()));
+      this.violations.add(new SimpleMessage(WARNING, key, violationTextFactory.create()));
     }
 
     return this;
@@ -192,21 +194,21 @@ public class ViolationBuilder {
    * <p>Appends to the builder a warning of error type.</p>
    *
    * @param key Unique identifier of the violation.
-   * @param violationTextBuilder Lazy description builder of the violation.
+   * @param violationTextFactory Lazy description builder of the violation.
    *
    * @return this - used to chain append calls.
    *
    * @since 1.0.0
    */
-  public ViolationBuilder warning(final String key, final ViolationTextBuilder violationTextBuilder) {
-    this.violations.add(new SimpleMessage(WARNING, key, violationTextBuilder.build()));
+  public ViolationBuilder warning(final String key, final ViolationTextFactory violationTextFactory) {
+    this.violations.add(new SimpleMessage(WARNING, key, violationTextFactory.create()));
 
     return this;
   }
 
   /**
    * <p>Constructor for ViolationBuilder.</p>
-   * <p>Starts off assuming that no violations. Multiple calls are
+   * <p>Starts off assuming that no violations. Multiple calls are/
    * then made to the various append methods, followed by a call to
    * {@link #build} to get the result.</p>
    *

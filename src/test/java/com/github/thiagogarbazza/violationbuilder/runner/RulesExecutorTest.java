@@ -1,19 +1,20 @@
 package com.github.thiagogarbazza.violationbuilder.runner;
 
 import com.github.thiagogarbazza.simplemessage.SimpleMessage;
+import com.github.thiagogarbazza.violationbuilder.ViolationBuilder;
 import com.github.thiagogarbazza.violationbuilder.ViolationException;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collection;
 import java.util.Iterator;
 
 import static com.github.thiagogarbazza.simplemessage.SimpleMessageType.ERROR;
-import static com.github.thiagogarbazza.violationbuilder.util.AssertMessageUtil.assertMessage;
+import static com.github.thiagogarbazza.violationbuilder.util.AssertMessage.assertMessage;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 class RulesExecutorTest {
 
@@ -40,14 +41,16 @@ class RulesExecutorTest {
 
   @Test
   void verifyAnyRulesBlockerNotPassNotCallingCumulative() {
-    Collection<ValidationRule<String>> rules = asList(validationRule, validationRuleStopFlow, validationRuleContinueFlow);
+    final Collection<ValidationRule<String>> rules = asList(validationRule, validationRuleStopFlow, validationRuleContinueFlow);
 
-    ViolationException exception = assertThrows(ViolationException.class, () -> RulesExecutor.rulesExecutor(rules, "Some block value."));
-
-    assertEquals("There was some violation.", exception.getMessage());
-    assertEquals(1, exception.getViolations().size());
+    final ViolationException exception = assertThrows(ViolationException.class, () -> RulesExecutor.rulesExecutor(rules, "Some block value."));
     final Iterator<SimpleMessage> iterator = exception.getViolations().iterator();
-    assertMessage(iterator.next(), ERROR, "key-blocker", "Message blocker rule.");
+
+    assertAll(
+      () -> assertEquals("There was some violation.", exception.getMessage()),
+      () -> assertEquals(1, exception.getViolations().size()),
+      () -> assertMessage(iterator.next(), ERROR, "key-blocker", "Message blocker rule.")
+    );
   }
 
   @Test
@@ -59,16 +62,18 @@ class RulesExecutorTest {
 
   @Test
   void verifyAnyRulesCumulative() {
-    Collection<ValidationRule<String>> rules = asList(validationRule, validationRuleContinueFlow,
+    final Collection<ValidationRule<String>> rules = asList(validationRule, validationRuleContinueFlow,
       validationRuleContinueFlow02, validationRuleStopFlow);
 
-    ViolationException exception = assertThrows(ViolationException.class, () -> RulesExecutor.rulesExecutor(rules, "Some invalid value."));
-
-    assertEquals("There was some violation.", exception.getMessage());
-    assertEquals(2, exception.getViolations().size());
+    final ViolationException exception = assertThrows(ViolationException.class, () -> RulesExecutor.rulesExecutor(rules, "Some invalid value."));
     final Iterator<SimpleMessage> iterator = exception.getViolations().iterator();
-    assertMessage(iterator.next(), ERROR, "key-cumulative-01", "Message cumulative rule 01.");
-    assertMessage(iterator.next(), ERROR, "key-cumulative-02", "Message cumulative rule 02.");
+
+    assertAll(
+      () -> assertEquals("There was some violation.", exception.getMessage()),
+      () -> assertEquals(2, exception.getViolations().size()),
+      () -> assertMessage(iterator.next(), ERROR, "key-cumulative-01", "Message cumulative rule 01."),
+      () -> assertMessage(iterator.next(), ERROR, "key-cumulative-02", "Message cumulative rule 02.")
+    );
   }
 
   @Test
@@ -77,10 +82,13 @@ class RulesExecutorTest {
 
     ViolationException exception = assertThrows(ViolationException.class, () -> RulesExecutor.rulesExecutor(rules, "Some invalid value."));
 
-    assertEquals("There was some violation.", exception.getMessage());
-    assertEquals(1, exception.getViolations().size());
     final Iterator<SimpleMessage> iterator = exception.getViolations().iterator();
-    assertMessage(iterator.next(), ERROR, "key-cumulative-01", "Message cumulative rule 01.");
+
+    assertAll(
+      () -> assertEquals("There was some violation.", exception.getMessage()),
+      () -> assertEquals(1, exception.getViolations().size()),
+      () -> assertMessage(iterator.next(), ERROR, "key-cumulative-01", "Message cumulative rule 01.")
+    );
   }
 
   @Test
@@ -95,5 +103,39 @@ class RulesExecutorTest {
     assertDoesNotThrow(() -> RulesExecutor.rulesExecutor(
       singletonList((ValidationRuleStopFlow<String>) (violationBuilder, data) -> { /* execute something*/ }),
       "Some invalid value."));
+  }
+
+  @Nested
+  static class WithSuperInterface{
+
+    @FunctionalInterface
+    static interface RuleSuperInterface extends ValidationRule<String> {
+
+      void runX(final ViolationBuilder violationBuilder, final String data);
+
+      @Override
+      default Rulesflow run(final ViolationBuilder violationBuilder, final String data) {
+        runX(violationBuilder, data);
+
+        return Rulesflow.CONTINUE;
+      }
+    }
+
+    @Test
+    void verifyAnyRulesNotPass() {
+      final Collection<RuleSuperInterface> rules = singletonList(
+        (violationBuilder, data) -> violationBuilder.error("key-cumulative-01", "Message cumulative rule 01."));
+
+      final ViolationException exception = assertThrows(ViolationException.class,
+        () -> RulesExecutor.rulesExecutor(rules, "Some invalid value."));
+
+      final Iterator<SimpleMessage> iterator = exception.getViolations().iterator();
+
+      assertAll(
+        () -> assertEquals("There was some violation.", exception.getMessage()),
+        () -> assertEquals(1, exception.getViolations().size()),
+        () -> assertMessage(iterator.next(), ERROR, "key-cumulative-01", "Message cumulative rule 01.")
+      );
+    }
   }
 }

@@ -21,6 +21,8 @@ public class RulesExecutor {
    * @param data Data to be validated.
    * @param <T> Type of data to be validated.
    *
+   * @throws com.github.thiagogarbazza.violationbuilder.ViolationException when there is a violation.
+   *
    * @since 1.1.0
    */
   public static <T> void ruleExecutor(final ViolationBuilder violationBuilder, final ValidationRule<T> rule, final T data) {
@@ -39,9 +41,11 @@ public class RulesExecutor {
    * @param data Data to be validated.
    * @param <T> Type of data to be validated.
    *
+   * @throws com.github.thiagogarbazza.violationbuilder.ViolationException when there is a violation.
+   *
    * @since 1.1.0
    */
-  public static <T> void rulesExecutor(final ViolationBuilder violationBuilder, final Collection<ValidationRule<T>> rules, final T data) {
+  public static <T> void rulesExecutor(final ViolationBuilder violationBuilder, final Collection<? extends ValidationRule<T>> rules, final T data) {
     for (ValidationRule<T> rule : rules) {
       ruleExecutor(violationBuilder, rule, data);
     }
@@ -54,9 +58,11 @@ public class RulesExecutor {
    * @param data Data to be validated.
    * @param <T> Type of data to be validated.
    *
+   * @throws com.github.thiagogarbazza.violationbuilder.ViolationException when there is a violation.
+   *
    * @since 1.1.0
    */
-  public static <T> void rulesExecutor(final Collection<ValidationRule<T>> rules, final T data) {
+  public static <T> void rulesExecutor(final Collection<? extends ValidationRule<T>> rules, final T data) {
     final ViolationBuilder violationBuilder = ViolationBuilder.builder();
     rulesExecutor(violationBuilder, rules, data);
     violationBuilder.build();

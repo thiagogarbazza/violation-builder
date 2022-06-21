@@ -5,10 +5,11 @@ package com.github.thiagogarbazza.violationbuilder;
  *
  * @since 1.0.0
  */
-public interface ViolationTextBuilder {
+@FunctionalInterface
+public interface ViolationTextFactory {
 
   /**
    * @return Lazy description builder of the violation.
    */
-  String build();
+  String create();
 }

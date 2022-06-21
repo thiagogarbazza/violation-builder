@@ -10,6 +10,7 @@ import com.github.thiagogarbazza.violationbuilder.ViolationBuilder;
  *
  * @since 1.0.0
  */
+@FunctionalInterface
 public interface ValidationRuleContinueFlow<T> extends ValidationRule<T> {
 
   /**

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static com.github.thiagogarbazza.simplemessage.SimpleMessageType.ERROR;
 import static com.github.thiagogarbazza.simplemessage.SimpleMessageType.WARNING;
-import static com.github.thiagogarbazza.violationbuilder.util.AssertMessageUtil.assertMessage;
+import static com.github.thiagogarbazza.violationbuilder.util.AssertMessage.assertMessage;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -51,10 +51,10 @@ class ViolationBuilderTest {
   }
 
   @Test
-  void verifyLazyViolationTextBuilder() {
-    ViolationTextBuilder violationTextBuilder = () -> fail("It shouldn't have called this method.");
+  void verifyLazyViolationTextFactory() {
+    final ViolationTextFactory violationTextFactory = () -> fail("It shouldn't have called this method.");
 
-    violationBuilder.warning(false, "warning-key", violationTextBuilder);
+    violationBuilder.warning(false, "warning-key", violationTextFactory);
   }
 
   @Test
