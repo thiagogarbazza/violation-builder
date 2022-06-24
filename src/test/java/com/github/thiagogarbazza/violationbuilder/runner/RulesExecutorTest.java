@@ -105,21 +105,22 @@ class RulesExecutorTest {
       "Some invalid value."));
   }
 
-  @Nested
-  static class WithSuperInterface{
+  @FunctionalInterface
+  interface RuleSuperInterface extends ValidationRule<String> {
 
-    @FunctionalInterface
-    static interface RuleSuperInterface extends ValidationRule<String> {
+    void runX(final ViolationBuilder violationBuilder, final String data);
 
-      void runX(final ViolationBuilder violationBuilder, final String data);
+    @Override
+    default Rulesflow run(final ViolationBuilder violationBuilder, final String data) {
+      runX(violationBuilder, data);
 
-      @Override
-      default Rulesflow run(final ViolationBuilder violationBuilder, final String data) {
-        runX(violationBuilder, data);
-
-        return Rulesflow.CONTINUE;
-      }
+      return Rulesflow.CONTINUE;
     }
+  }
+
+  @Nested
+  class WithSuperInterface {
+
 
     @Test
     void verifyAnyRulesNotPass() {
