@@ -4,7 +4,7 @@
 
   <groupId>com.github.thiagogarbazza</groupId>
   <artifactId>violation-builder</artifactId>
-  <version>1.2.0</version>
+  <version>1.2.1-SNAPSHOT</version>
 
   <name>Violation builder</name>
   <description>A small java library for building violations.</description>
