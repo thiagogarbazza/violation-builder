@@ -25,7 +25,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - ViolationTextBuilder
 - Create rule executor.
 
-[Unreleased]: https://github.com/olivierlacan/keep-a-changelog/compare/1.1.0...HEAD
-[1.2.0]: https://github.com/olivierlacan/keep-a-changelog/compare/1.2.0...1.1.0
+[Unreleased]: https://github.com/thiagogarbazza/violation-builder/compare/1.2.0...HEAD
+[1.2.0]: https://github.com/thiagogarbazza/violation-builder/compare/1.1.0...1.2.0
 [1.1.0]: https://github.com/thiagogarbazza/violation-builder/compare/1.0.0...1.1.0
 [1.0.0]: https://github.com/thiagogarbazza/violation-builder/releases/tag/1.0.0
